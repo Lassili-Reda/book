@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reda Lassili - Model Portfolio / Portfolio Modello / Portfolio Modèle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #1a1a1a;
+            background-color: #ffffff;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid #1a1a1a;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            color: #1a1a1a;
+        }
+
+        .lang-btn:hover {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .lang-btn.active {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        /* Language visibility */
+        [data-lang="en"] {
+            display: block;
+        }
+
+        [data-lang="it"],
+        [data-lang="fr"] {
+            display: none;
+        }
+
+        body.lang-it [data-lang="en"],
+        body.lang-it [data-lang="fr"] {
+            display: none;
+        }
+
+        body.lang-it [data-lang="it"] {
+            display: block;
+        }
+
+        body.lang-fr [data-lang="en"],
+        body.lang-fr [data-lang="it"] {
+            display: none;
+        }
+
+        body.lang-fr [data-lang="fr"] {
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Cover Page */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            background-image: url('Galerie/Polaroids/1705659315528.JPG');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .cover > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cover-image {
+            display: none;
+        }
+
+        /* Cover Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .cover-name {
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .cover-subtitle {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cover-location {
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cover-tagline {
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 60px;
+            opacity: 0.85;
+            max-width: 600px;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cover-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            animation: fadeIn 1.5s ease-out 1s both, pulse 2s ease-in-out 2s infinite;
+        }
+
+        .cover-scroll:hover {
+            opacity: 0.7;
+        }
+
+        .cover-scroll-text {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .cover-scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+            transform: rotate(45deg);
+            opacity: 0.8;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            text-align: center;
+            color: #1a1a1a;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        /* Image Grids */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .image-item {
+            position: relative;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            aspect-ratio: 3/4;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .polaroid-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        /* Video Section */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            justify-items: center;
+        }
+
+        .video-item {
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+            aspect-ratio: 9/16;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .video-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Measurements */
+        .measurements {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .measurement-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .measurement-item:last-child {
+            border-bottom: none;
+        }
+
+        .measurement-label {
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .measurement-value {
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* About Me */
+        .about-me {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+            font-weight: 300;
+        }
+
+        /* Contact */
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-label {
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .contact-value {
+            color: #666;
+        }
+
+        .contact-value a {
+            color: #1a1a1a;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-value a:hover {
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+            section {
+                page-break-inside: avoid;
+            }
+            .cover {
+                page-break-after: always;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cover-name {
+                font-size: 48px;
+                letter-spacing: 4px;
+                color: #ffffff;
+            }
+            .cover-subtitle {
+                font-size: 14px;
+                color: #ffffff;
+            }
+            .cover-location {
+                font-size: 14px;
+                color: #ffffff;
+            }
+            .cover-tagline {
+                font-size: 12px;
+                padding: 0 20px;
+                color: #ffffff;
+            }
+            .cover-scroll {
+                bottom: 20px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            .image-grid,
+            .polaroid-grid,
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" onclick="switchLanguage('en')">EN</button>
+        <button class="lang-btn" onclick="switchLanguage('it')">IT</button>
+        <button class="lang-btn" onclick="switchLanguage('fr')">FR</button>
+    </div>
+
+    <!-- Cover Page -->
+    <div class="cover">
+        <h1 class="cover-name">REDA</h1>
+        <p class="cover-subtitle" data-lang="en">Model Portfolio</p>
+        <p class="cover-subtitle" data-lang="it">Portfolio Modello</p>
+        <p class="cover-subtitle" data-lang="fr">Portfolio Modèle</p>
+        <p class="cover-location" data-lang="en">Marseille, France</p>
+        <p class="cover-location" data-lang="it">Marsiglia, Francia</p>
+        <p class="cover-location" data-lang="fr">Marseille, France</p>
+        <p class="cover-tagline" data-lang="en">Fashion & Commercial Modeling | Available Europe & USA</p>
+        <p class="cover-tagline" data-lang="it">Moda & Commerciale | Disponibile Europa & USA</p>
+        <p class="cover-tagline" data-lang="fr">Mode & Commercial | Disponible Europe & USA</p>
+        <a href="#editorial" class="cover-scroll">
+            <span class="cover-scroll-text" data-lang="en">Scroll</span>
+            <span class="cover-scroll-text" data-lang="it">Scorri</span>
+            <span class="cover-scroll-text" data-lang="fr">Défiler</span>
+            <div class="cover-scroll-arrow"></div>
+        </a>
+    </div>
+
+    <div class="container">
+        <!-- Editorial / Fashion -->
+        <section id="editorial">
+            <h2 data-lang="en">Editorial / Fashion</h2>
+            <h2 data-lang="it">Editoriale / Moda</h2>
+            <h2 data-lang="fr">Editorial / Mode</h2>
+            <div class="image-grid">
+                <div class="image-item">
+                    <img src="Galerie/Editorial/image00009.jpeg" alt="Editorial Shot 1">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/133eebb8-bb92-4f40-b44e-de28b99ede9e.png" alt="Editorial Shot 2">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/6a30fb49-1284-4138-8cf8-fdbbb8ccf78b.png" alt="Editorial Shot 3">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/image00001.jpeg" alt="Editorial Shot 4">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/image00003.jpeg" alt="Editorial Shot 5">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/image00005.jpeg" alt="Editorial Shot 6">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/image00007.jpeg" alt="Editorial Shot 7">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/image00010.JPG" alt="Editorial Shot 8">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/image00013.jpeg" alt="Editorial Shot 9">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/image00019.JPG" alt="Editorial Shot 10">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/image00026.JPG" alt="Editorial Shot 11">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Editorial/image00031.JPG" alt="Editorial Shot 12">
+                </div>
+            </div>
+        </section>
+
+        <!-- Polaroids / Digitals -->
+        <section id="polaroids">
+            <h2 data-lang="en">Polaroids / Digitals</h2>
+            <h2 data-lang="it">Polaroid / Digitali</h2>
+            <h2 data-lang="fr">Polaroid / Numériques</h2>
+            <div class="polaroid-grid">
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/1705659315528.JPG" alt="Polaroid 1">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/1705659315534.JPG" alt="Polaroid 2">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/1705659315539.JPG" alt="Polaroid 3">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/2F7A7833.JPG" alt="Polaroid 4">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/2F7A7837.JPG" alt="Polaroid 5">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/image00006.JPG" alt="Polaroid 6">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/image00039.JPG" alt="Polaroid 7">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/image00048.JPG" alt="Polaroid 8">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/image00051.JPG" alt="Polaroid 9">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/image00055.JPG" alt="Polaroid 10">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/image00056.JPG" alt="Polaroid 11">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/image00058.JPG" alt="Polaroid 12">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/image00059.JPG" alt="Polaroid 13">
+                </div>
+                <div class="image-item">
+                    <img src="Galerie/Polaroids/image00060.JPG" alt="Polaroid 14">
+                </div>
+            </div>
+        </section>
+
+        <!-- Video -->
+        <section id="video">
+            <h2 data-lang="en">Video</h2>
+            <h2 data-lang="it">Video</h2>
+            <h2 data-lang="fr">Vidéo</h2>
+            <div class="video-grid">
+                <div class="video-item">
+                    <video controls preload="metadata">
+                        <source src="Galerie/Videos/video-output-2A6ECD17-A9D5-41EE-97CC-3591E5A9086C-2.mov" type="video/quicktime">
+                        <source src="Galerie/Videos/video-output-2A6ECD17-A9D5-41EE-97CC-3591E5A9086C-2.mov" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-item">
+                    <video controls preload="metadata">
+                        <source src="Galerie/Videos/video-output-7B444349-72F9-4463-8875-82BE74892ECB-2.mov" type="video/quicktime">
+                        <source src="Galerie/Videos/video-output-7B444349-72F9-4463-8875-82BE74892ECB-2.mov" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Measurements -->
+        <section id="measurements">
+            <h2 data-lang="en">Measurements</h2>
+            <h2 data-lang="it">Misure</h2>
+            <h2 data-lang="fr">Mesures</h2>
+            <div class="measurements">
+                <div class="measurement-item">
+                    <span class="measurement-label" data-lang="en">Height</span>
+                    <span class="measurement-label" data-lang="it">Altezza</span>
+                    <span class="measurement-label" data-lang="fr">Hauteur</span>
+                    <span class="measurement-value">191 cm</span>
+                </div>
+                <div class="measurement-item">
+                    <span class="measurement-label" data-lang="en">Chest</span>
+                    <span class="measurement-label" data-lang="it">Petto</span>
+                    <span class="measurement-label" data-lang="fr">Poitrine</span>
+                    <span class="measurement-value">98 cm</span>
+                </div>
+                <div class="measurement-item">
+                    <span class="measurement-label" data-lang="en">Waist</span>
+                    <span class="measurement-label" data-lang="it">Vita</span>
+                    <span class="measurement-label" data-lang="fr">Taille</span>
+                    <span class="measurement-value">79 cm</span>
+                </div>
+                <div class="measurement-item">
+                    <span class="measurement-label" data-lang="en">Hips</span>
+                    <span class="measurement-label" data-lang="it">Fianchi</span>
+                    <span class="measurement-label" data-lang="fr">Hanche</span>
+                    <span class="measurement-value">95 cm</span>
+                </div>
+                <div class="measurement-item">
+                    <span class="measurement-label" data-lang="en">Shoe Size</span>
+                    <span class="measurement-label" data-lang="it">Taglia Scarpe</span>
+                    <span class="measurement-label" data-lang="fr">Pointure</span>
+                    <span class="measurement-value">44 EU</span>
+                </div>
+                <div class="measurement-item">
+                    <span class="measurement-label" data-lang="en">Age</span>
+                    <span class="measurement-label" data-lang="it">Età</span>
+                    <span class="measurement-label" data-lang="fr">Âge</span>
+                    <span class="measurement-value">25</span>
+                </div>
+                <div class="measurement-item">
+                    <span class="measurement-label" data-lang="en">City & Country</span>
+                    <span class="measurement-label" data-lang="it">Città & Paese</span>
+                    <span class="measurement-label" data-lang="fr">Ville & Pays</span>
+                    <span class="measurement-value">Marseille, France</span>
+                </div>
+                <div class="measurement-item">
+                    <span class="measurement-label" data-lang="en">Availability</span>
+                    <span class="measurement-label" data-lang="it">Disponibilità</span>
+                    <span class="measurement-label" data-lang="fr">Disponibilité</span>
+                    <span class="measurement-value" data-lang="en">All week 7/7 - Europe & USA</span>
+                    <span class="measurement-value" data-lang="it">Tutta la settimana 7/7 - Europa & USA</span>
+                    <span class="measurement-value" data-lang="fr">Toute la semaine 7/7 - Europe & USA</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me -->
+        <section id="about">
+            <h2 data-lang="en">ABOUT REDA</h2>
+            <h2 data-lang="it">SU REDA</h2>
+            <h2 data-lang="fr">À PROPOS DE REDA</h2>
+            <div class="about-me">
+                <p data-lang="en">Business analyst and emerging model with a strong interest in fashion and culture. Curious, professional, and highly adaptable, he brings clean lines, distinctive proportions and a modern look that works across editorial, ecommerce, lifestyle, and brand campaigns. Motivated to grow in the industry and open to representation.</p>
+                <p data-lang="it">Analista aziendale e modello emergente con un forte interesse per la moda e la cultura. Curioso, professionale e altamente adattabile, porta linee pulite, proporzioni distintive e un look moderno che funziona in editoriale, e-commerce, lifestyle e campagne di marca. Motivato a crescere nel settore e aperto alla rappresentanza.</p>
+                <p data-lang="fr">Analyste d'affaires et mannequin émergent avec un fort intérêt pour la mode et la culture. Curieux, professionnel et hautement adaptable, il apporte des lignes épurées, des proportions distinctives et un look moderne qui fonctionne dans l'éditorial, l'e-commerce, le lifestyle et les campagnes de marque. Motivé à grandir dans l'industrie et ouvert à la représentation.</p>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <h2 data-lang="en">Contact</h2>
+            <h2 data-lang="it">Contatto</h2>
+            <h2 data-lang="fr">Contact</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-label" data-lang="en">Name</span>
+                    <span class="contact-label" data-lang="it">Nome</span>
+                    <span class="contact-label" data-lang="fr">Nom</span>
+                    <span class="contact-value">Reda Lassili</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label" data-lang="en">City / Country</span>
+                    <span class="contact-label" data-lang="it">Città / Paese</span>
+                    <span class="contact-label" data-lang="fr">Ville / Pays</span>
+                    <span class="contact-value">Marseille, France</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label" data-lang="en">Email</span>
+                    <span class="contact-label" data-lang="it">Email</span>
+                    <span class="contact-label" data-lang="fr">Email</span>
+                    <span class="contact-value"><a href="mailto:lassiliziani@gmail.com">lassiliziani@gmail.com</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label" data-lang="en">Instagram</span>
+                    <span class="contact-label" data-lang="it">Instagram</span>
+                    <span class="contact-label" data-lang="fr">Instagram</span>
+                    <span class="contact-value"><a href="https://instagram.com/reda_lassili" target="_blank">@reda_lassili</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label" data-lang="en">Availability for Castings</span>
+                    <span class="contact-label" data-lang="it">Disponibilità per Casting</span>
+                    <span class="contact-label" data-lang="fr">Disponibilité pour Castings</span>
+                    <span class="contact-value" data-lang="en">All week 7/7 - Europe & USA<br>Response time: within 24 hours</span>
+                    <span class="contact-value" data-lang="it">Tutta la settimana 7/7 - Europa & USA<br>Tempo di risposta: entro 24 ore</span>
+                    <span class="contact-value" data-lang="fr">Toute la semaine 7/7 - Europe & USA<br>Temps de réponse: sous 24 heures</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p data-lang="en">Portfolio prepared for agency submission | All images are unretouched polaroids or professionally produced work</p>
+        <p data-lang="it">Portfolio preparato per invio alle agenzie | Tutte le immagini sono polaroid non ritoccate o lavori prodotti professionalmente</p>
+        <p data-lang="fr">Portfolio préparé pour soumission aux agences | Toutes les images sont des polaroids non retouchés ou des travaux produits professionnellement</p>
+    </footer>
+
+    <script>
+        function switchLanguage(lang) {
+            // Update body class
+            if (lang === 'it') {
+                document.body.className = 'lang-it';
+            } else if (lang === 'fr') {
+                document.body.className = 'lang-fr';
+            } else {
+                document.body.className = '';
+            }
+            
+            // Update button states
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.textContent === lang.toUpperCase()) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+        }
+    </script>
+</body>
+</html>
+
